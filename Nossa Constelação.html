@@ -1,0 +1,648 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Nossa Constelação</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..700;1,6..96,400..700&family=Caveat:wght@500;600&family=Figtree:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap">
+<style>
+/* Layout: um único céu noturno que continua atrás de tudo. O topo é um mapa com duas estrelas ligadas por uma linha; as seções seguintes são folhas de atlas em coluna estreita, e o momento central é uma constelação em forma de coração que o visitante acende estrela por estrela. */
+:root {
+  --night: #0a0c22;
+  --night-2: #12163b;
+  --edge: #343a78;
+  --starlight: #f8f0df;
+  --rose: #f4a3b5;
+  --text: #ece8f6;
+  --muted: #a3a6d2;
+  --dim: #6f74ad;
+  --f-display: "Bodoni Moda", "Didot", "Bodoni 72", Georgia, serif;
+  --f-body: "Figtree", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --f-mono: "Space Mono", ui-monospace, Menlo, Consolas, monospace;
+  --f-hand: "Caveat", "Segoe Script", "Bradley Hand", cursive;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--night);
+  color: var(--text);
+  font: 400 1rem/1.65 var(--f-body);
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
+}
+p { margin: 0; }
+#sky { position: fixed; inset: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; display: block; }
+main { position: relative; z-index: 1; }
+.wrap {
+  width: 100%;
+  max-width: 680px;
+  margin-inline: auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.label, .eyebrow {
+  font: 400 .72rem/1.35 var(--f-mono);
+  letter-spacing: .16em;
+  text-transform: uppercase;
+}
+.label { color: var(--rose); }
+.eyebrow { color: var(--muted); }
+h1, h2 { font-family: var(--f-display); font-style: italic; font-weight: 500; text-wrap: balance; margin: 0; }
+h1 { font-size: clamp(2.5rem, 10vw, 4.25rem); line-height: 1.02; letter-spacing: -.015em; }
+h1 em { color: var(--rose); font-weight: 700; }
+h2 { font-size: clamp(1.9rem, 6.5vw, 2.7rem); line-height: 1.1; letter-spacing: -.01em; }
+.lead { color: var(--muted); max-width: 46ch; font-size: 1.05rem; }
+
+.hero { padding-block: 44px 8px; }
+.duo { display: block; width: 100%; max-width: 560px; height: auto; margin-top: 10px; }
+.duo .ring { fill: none; stroke: var(--edge); stroke-width: 1; stroke-dasharray: 2 6; }
+.duo .tiny { font: 400 9px var(--f-mono); letter-spacing: .08em; fill: var(--dim); }
+.duo .nm { font: italic 500 19px var(--f-display); fill: var(--starlight); }
+.duo .mag { font: 400 9.5px var(--f-mono); letter-spacing: .06em; fill: var(--muted); }
+.duo .mid { font: 400 10.5px var(--f-mono); letter-spacing: .04em; fill: var(--muted); }
+.duo .pair { fill: none; stroke: var(--rose); stroke-width: 1.6; stroke-linecap: round; stroke-dasharray: 1; stroke-dashoffset: 0; animation: draw 1.8s ease-out; }
+.duo .hs1 { stop-color: var(--starlight); stop-opacity: .85; }
+.duo .hs0 { stop-color: var(--starlight); stop-opacity: 0; }
+.duo .core { fill: var(--starlight); }
+.duo .halo { animation: pulse 3.6s ease-in-out infinite; }
+.duo .halo.b { animation-delay: -1.7s; }
+@keyframes draw { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
+@keyframes pulse { 0%, 100% { opacity: .6; } 50% { opacity: 1; } }
+
+.sec { padding-block: 48px; }
+
+.clock { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px 14px; margin-top: 6px; }
+.unit { border-top: 1px solid var(--edge); padding-top: 12px; min-width: 0; }
+.unit b { display: block; font: 400 clamp(1.7rem, 8.6vw, 3rem)/1 var(--f-mono); font-variant-numeric: tabular-nums; letter-spacing: -.04em; color: var(--starlight); }
+.unit span { display: block; margin-top: 8px; font: 400 .66rem/1 var(--f-mono); letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+.since { color: var(--muted); max-width: 44ch; }
+.since strong { color: var(--text); font-weight: 500; }
+
+.skybox { position: relative; width: 100%; max-width: 440px; margin: 10px auto 0; aspect-ratio: 400 / 360; }
+.skybox svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.seg { stroke: var(--edge); stroke-width: 1.2; stroke-dasharray: 3 5; fill: none; transition: stroke .4s; }
+.seg.on { stroke: var(--rose); stroke-width: 1.6; stroke-dasharray: none; filter: drop-shadow(0 0 4px var(--rose)); }
+.heartfill { fill: var(--rose); opacity: 0; transition: opacity 1.4s; }
+.skybox.complete .heartfill { opacity: .13; }
+.gs1 { stop-color: var(--starlight); stop-opacity: .8; }
+.gs0 { stop-color: var(--starlight); stop-opacity: 0; }
+.rs1 { stop-color: var(--rose); stop-opacity: .9; }
+.rs0 { stop-color: var(--rose); stop-opacity: 0; }
+.cs .halo { fill: url(#gh); opacity: .22; transition: opacity .4s; }
+.cs .spark { fill: var(--dim); transition: fill .4s; }
+.cs .sp { transform-box: fill-box; transform-origin: center; transition: transform .35s; }
+.cs .gl { font: italic 500 17px var(--f-display); fill: var(--dim); transition: fill .4s; }
+.cs.on .halo { opacity: .95; }
+.cs.on .spark { fill: var(--starlight); }
+.cs.on .gl { fill: var(--muted); }
+.cs.cur .halo { fill: url(#gr); opacity: 1; }
+.cs.cur .spark { fill: var(--rose); }
+.cs.cur .gl { fill: var(--rose); }
+.cs.cur .sp { transform: scale(1.5); }
+.hit { position: absolute; width: 48px; height: 48px; transform: translate(-50%, -50%); border: 0; border-radius: 50%; background: transparent; padding: 0; cursor: pointer; }
+.hit:focus-visible, .btn:focus-visible { outline: 2px solid var(--rose); outline-offset: 3px; }
+
+.reason { border: 1px solid var(--edge); border-radius: 14px; background: var(--night-2); padding: 20px 20px 22px; display: flex; flex-direction: column; gap: 10px; min-height: 148px; }
+.reason .key { font: 400 .7rem/1.3 var(--f-mono); letter-spacing: .14em; text-transform: uppercase; color: var(--rose); }
+.reason .txt { font: italic 500 clamp(1.3rem, 5vw, 1.55rem)/1.35 var(--f-display); color: var(--starlight); text-wrap: pretty; }
+.tools { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.count { font: 400 .74rem/1.3 var(--f-mono); letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+.done-note { color: var(--starlight); font-family: var(--f-display); font-style: italic; font-size: 1.15rem; }
+.heartname { opacity: 0; transition: opacity 1.6s; }
+.skybox.complete .heartname { opacity: 1; }
+.hn1 { font: italic 600 26px var(--f-display); fill: var(--rose); }
+.hn2 { font: 400 9.5px var(--f-mono); letter-spacing: .14em; fill: var(--muted); }
+
+.orbit { display: flex; flex-wrap: wrap; align-items: center; gap: 20px 28px; margin-top: 6px; }
+.orbit svg { width: 140px; height: 140px; flex: none; }
+.orbit .ring { fill: none; stroke: var(--edge); stroke-width: 1; stroke-dasharray: 2 5; }
+.orbit .pl { fill: var(--rose); }
+.orbit .core { fill: var(--starlight); }
+.orbit .lb { font: 400 10px var(--f-mono); letter-spacing: .12em; fill: var(--muted); }
+.orbit .ps1 { stop-color: var(--rose); stop-opacity: .55; }
+.orbit .ps0 { stop-color: var(--rose); stop-opacity: 0; }
+.orbit .sat { transform-origin: 70px 70px; animation: spin 16s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.sheet { margin: 0; flex: 1 1 240px; min-width: 0; }
+.sheet div { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.5fr); gap: 12px; padding: 10px 0; border-top: 1px solid var(--edge); }
+.sheet dt { font: 400 .68rem/1.6 var(--f-mono); letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+.sheet dd { margin: 0; color: var(--text); }
+
+.scene { display: flex; flex-direction: column; gap: 14px; margin-top: 6px; }
+.scene svg { display: block; width: 100%; max-width: 560px; height: auto; }
+.scene .nm { font: italic 500 19px var(--f-display); fill: var(--starlight); }
+.mline { stroke: var(--rose); stroke-width: 1.6; stroke-linecap: round; stroke-dasharray: 3 6; }
+.ms1 { stop-color: var(--starlight); stop-opacity: .85; }
+.ms0 { stop-color: var(--starlight); stop-opacity: 0; }
+.mcore { fill: var(--starlight); }
+.readout { display: flex; align-items: baseline; justify-content: space-between; gap: 6px 12px; flex-wrap: wrap; border-top: 1px solid var(--edge); padding-top: 12px; }
+.rd-state { font: italic 500 clamp(1.3rem, 5vw, 1.6rem)/1.3 var(--f-display); color: var(--starlight); }
+.rd-mag { font: 400 .8rem/1.3 var(--f-mono); letter-spacing: .1em; color: var(--muted); font-variant-numeric: tabular-nums; }
+.range { display: flex; flex-direction: column; gap: 8px; }
+.range span { font: 400 .72rem/1.3 var(--f-mono); letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+input[type="range"] { -webkit-appearance: none; appearance: none; width: 100%; height: 32px; margin: 0; background: transparent; cursor: pointer; }
+input[type="range"]::-webkit-slider-runnable-track { height: 2px; background: var(--edge); border-radius: 2px; }
+input[type="range"]::-moz-range-track { height: 2px; background: var(--edge); border-radius: 2px; }
+input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 26px; height: 26px; margin-top: -12px; border-radius: 50%; background: var(--rose); border: 0; box-shadow: 0 0 0 6px rgba(244, 163, 181, .18); }
+input[type="range"]::-moz-range-thumb { width: 26px; height: 26px; border-radius: 50%; background: var(--rose); border: 0; box-shadow: 0 0 0 6px rgba(244, 163, 181, .18); }
+input[type="range"]:focus-visible { outline: 2px solid var(--rose); outline-offset: 6px; border-radius: 6px; }
+
+.btn { font: 600 1rem/1 var(--f-body); border-radius: 999px; padding: 15px 28px; border: 1px solid transparent; cursor: pointer; white-space: nowrap; }
+.btn.ghost { background: transparent; color: var(--text); border-color: var(--edge); padding: 11px 18px; font-size: .9rem; }
+.btn.ghost:hover { border-color: var(--rose); }
+.btn.yes { background: var(--rose); color: var(--night); transform-origin: left center; transition: transform .3s; }
+.btn.no { background: transparent; color: var(--muted); border-color: var(--edge); }
+.btn.no.free { position: absolute; transition: left .28s ease, top .28s ease; }
+.choices { position: relative; min-height: 190px; display: flex; gap: 14px; align-items: flex-start; }
+.hint { color: var(--dim); font: 400 .74rem/1.4 var(--f-mono); letter-spacing: .06em; }
+.yes-msg { display: flex; flex-direction: column; gap: 12px; }
+.yes-msg h3 { margin: 0; font: italic 700 clamp(2.2rem, 9vw, 3.4rem)/1 var(--f-display); color: var(--rose); }
+.yes-msg p { color: var(--text); max-width: 40ch; }
+.yes-msg .stamp { font: 400 .72rem/1.4 var(--f-mono); letter-spacing: .08em; color: var(--muted); text-transform: uppercase; }
+
+.letter { background: var(--night-2); border: 1px solid var(--edge); border-radius: 14px; padding: 28px 24px 30px; font: 500 clamp(1.4rem, 5.4vw, 1.75rem)/1.45 var(--f-hand); color: var(--starlight); display: flex; flex-direction: column; gap: 14px; }
+.letter .sig { color: var(--rose); font-size: 1.15em; margin-top: 4px; }
+
+.foot { padding-block: 28px 56px; }
+.foot p { color: var(--dim); font: 400 .7rem/1.6 var(--f-mono); letter-spacing: .12em; text-transform: uppercase; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+</style>
+
+<canvas id="sky" aria-hidden="true"></canvas>
+
+<main>
+  <header class="hero">
+    <div class="wrap">
+      <p class="eyebrow">Carta celeste de Kailla Katsu · 16.11.2026</p>
+      <h1>Fiz um céu inteiro só pra você, <em>Kailla</em>.</h1>
+      <p class="lead">Montei tudo hoje à noite, pensando na minha desbravacrush . Toque nas estrelas e role a página, tem coisa escondida.</p>
+
+      <svg class="duo" viewBox="0 0 360 210" role="img" aria-label="Duas estrelas ligadas por uma linha. Uma é o Kelven, a mais brilhante é a Kailla.">
+        <defs>
+          <radialGradient id="hg"><stop offset="0" class="hs1"/><stop offset="1" class="hs0"/></radialGradient>
+        </defs>
+        <circle class="ring" cx="180" cy="108" r="52"/>
+        <circle class="ring" cx="180" cy="108" r="92"/>
+        <circle class="ring" cx="180" cy="108" r="134"/>
+        <text class="tiny" x="6" y="14">AR 20h 16m</text>
+        <text class="tiny" x="354" y="204" text-anchor="end">DEC +34°</text>
+
+        <path class="pair" pathLength="1" d="M64 148 L296 72"/>
+        <circle class="core" cx="180" cy="110" r="1.8"/>
+        <text class="mid" transform="translate(180 110) rotate(-18)" y="17" text-anchor="middle">distância: um abraço</text>
+
+        <g transform="translate(64 148)">
+          <circle class="halo" r="30" fill="url(#hg)"/>
+          <path class="core" transform="scale(12)" d="M0 -1C.1 -.25 .25 -.1 1 0C.25 .1 .1 .25 0 1C-.1 .25 -.25 .1 -1 0C-.25 -.1 -.1 -.25 0 -1Z"/>
+        </g>
+        <text class="nm" x="64" y="186" text-anchor="middle">Kelven</text>
+        <text class="mag" x="64" y="200" text-anchor="middle">mag +0,9</text>
+
+        <g transform="translate(296 72)">
+          <circle class="halo b" r="42" fill="url(#hg)"/>
+          <path class="core" transform="scale(18)" d="M0 -1C.1 -.25 .25 -.1 1 0C.25 .1 .1 .25 0 1C-.1 .25 -.25 .1 -1 0C-.25 -.1 -.1 -.25 0 -1Z"/>
+        </g>
+        <text class="nm" x="296" y="116" text-anchor="middle">Kailla</text>
+        <text class="mag" x="296" y="130" text-anchor="middle">mag −1,4</text>
+      </svg>
+    </div>
+  </header>
+
+  <section class="sec" aria-labelledby="t-time">
+    <div class="wrap">
+      <p class="label">Tempo de luz</p>
+      <h2 id="t-time">Quanto tempo a nossa luz já viajou.</h2>
+      <div class="clock" role="timer" aria-label="Tempo juntos">
+        <div class="unit"><b id="cd">0</b><span>dias</span></div>
+        <div class="unit"><b id="ch">00</b><span>horas</span></div>
+        <div class="unit"><b id="cm">00</b><span>min</span></div>
+        <div class="unit"><b id="cs">00</b><span>seg</span></div>
+      </div>
+      <p class="since" id="since"></p>
+      <p class="since">Antes disso era só o Instagram. Foi no Olimpori que a gente se viu pessoalmente,pela primeira vez, e desde então faço questão de te mandar mensagem todo dia.</p>
+    </div>
+  </section>
+
+  <section class="sec" aria-labelledby="t-mag">
+    <div class="wrap">
+      <p class="label">Brilho aparente</p>
+      <h2 id="t-mag">Eu sem você e eu com você.</h2>
+      <p class="lead">Na astronomia, quanto menor a magnitude, mais brilhante a estrela. Arraste o controle e veja o que acontece com a minha quando você chega perto.</p>
+      <div class="scene">
+        <svg id="magsvg" viewBox="0 0 360 200" role="img" aria-label="Duas estrelas. Quanto mais a Kailla se aproxima, mais brilha a estrela do Kelven.">
+          <defs>
+            <radialGradient id="mg"><stop offset="0" class="ms1"/><stop offset="1" class="ms0"/></radialGradient>
+          </defs>
+          <line id="mline" class="mline" x1="100" y1="100" x2="318" y2="100"/>
+          <g transform="translate(100 100)">
+            <circle id="mhalo" r="20" fill="url(#mg)"/>
+            <path id="mspark" class="mcore" transform="scale(9)" d="M0 -1C.1 -.25 .25 -.1 1 0C.25 .1 .1 .25 0 1C-.1 .25 -.25 .1 -1 0C-.25 -.1 -.1 -.25 0 -1Z"/>
+            <text class="nm" y="60" text-anchor="middle">Kelven</text>
+          </g>
+          <g id="mher" transform="translate(318 100)">
+            <circle r="34" fill="url(#mg)"/>
+            <path class="mcore" transform="scale(16)" d="M0 -1C.1 -.25 .25 -.1 1 0C.25 .1 .1 .25 0 1C-.1 .25 -.25 .1 -1 0C-.25 -.1 -.1 -.25 0 -1Z"/>
+            <text class="nm" y="60" text-anchor="middle">Kailla</text>
+          </g>
+        </svg>
+        <div class="readout">
+          <p class="rd-state" id="mstate" aria-live="polite">eu sem você</p>
+          <p class="rd-mag" id="mmag">mag +2,4</p>
+        </div>
+        <label class="range" for="mrange">
+          <span>Aproximar a Kailla</span>
+          <input type="range" id="mrange" min="0" max="100" value="0" step="1">
+        </label>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" aria-labelledby="t-map">
+    <div class="wrap">
+      <p class="label">Mapa das estrelas</p>
+      <h2 id="t-map">Oito motivos, uma constelação.</h2>
+      <p class="lead">Toque em cada estrela para acendê-la.</p>
+      <div class="skybox" id="skybox">
+        <svg id="chart" viewBox="0 0 400 360" aria-hidden="true"></svg>
+      </div>
+      <div class="reason" aria-live="polite">
+        <p class="key" id="rkey"></p>
+        <p class="txt" id="rtxt"></p>
+      </div>
+      <div class="tools">
+        <p class="count" id="count"></p>
+        <button type="button" class="btn ghost" id="next">Próxima estrela</button>
+      </div>
+      <p class="done-note" id="complete" hidden>A constelação fechou. Tem a forma de um coração e agora tem o seu nome: Cor Kailla. Foi de propósito.</p>
+    </div>
+  </section>
+
+  <section class="sec" aria-labelledby="t-k612">
+    <div class="wrap">
+      <p class="label">Asteroide K-612</p>
+      <h2 id="t-k612">Um planeta só nosso.</h2>
+      <p class="lead">Eu sei que você gosta muito de O Pequeno Príncipe. Então inventei um asteroide pra gente, o K-612, em homenagem ao B-612 e à inicial do seu nome. Ele é pequeno o bastante pra você ver o pôr do sol quantas vezes quiser, só arrastando a cadeira de lugar.</p>
+      <div class="orbit">
+        <svg viewBox="0 0 140 140" role="img" aria-label="Um asteroide pequeno com um ponto de luz girando ao redor">
+          <defs>
+            <radialGradient id="pg"><stop offset="0" class="ps1"/><stop offset="1" class="ps0"/></radialGradient>
+          </defs>
+          <circle class="ring" cx="70" cy="70" r="56"/>
+          <circle cx="70" cy="70" r="34" fill="url(#pg)"/>
+          <circle class="pl" cx="70" cy="70" r="14"/>
+          <g class="sat"><path class="core" transform="translate(126 70) scale(5)" d="M0 -1C.1 -.25 .25 -.1 1 0C.25 .1 .1 .25 0 1C-.1 .25 -.25 .1 -1 0C-.25 -.1 -.1 -.25 0 -1Z"/></g>
+          <text class="lb" x="70" y="102" text-anchor="middle">K-612</text>
+        </svg>
+        <dl class="sheet">
+          <div><dt>Designação</dt><dd>K-612</dd></div>
+          <div><dt>Vagas</dt><dd>2, ambas preenchidas por nós</dd></div>
+          <div><dt>Pores do sol por dia</dt><dd>quantos você quiser</dd></div>
+          <div><dt>Vulcões</dt><dd>limpos por mim</dd></div>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" aria-labelledby="t-ask">
+    <div class="wrap" id="ask">
+      <p class="label">Uma pergunta</p>
+      <h2 id="t-ask">Quer descobrir comigo até onde essa constelação vai?</h2>
+      <div class="choices" id="choices">
+        <button type="button" class="btn yes" id="yes">Quero</button>
+        <button type="button" class="btn no" id="no">Não</button>
+      </div>
+      <p class="hint" id="hint">Dica: o “Não” é muito tímido.</p>
+      <div class="yes-msg" id="yesmsg" hidden>
+        <h3>Eu sabia.</h3>
+        <p>Então tá combinado. Agora me chama e me conta o que você achou, eu estou esperando a sua mensagem.</p>
+        <p class="stamp" id="stamp"></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" aria-labelledby="t-letter">
+    <div class="wrap">
+      <p class="label">Carta</p>
+      <h2 id="t-letter">Pra você ler com calma.</h2>
+      <div class="letter">
+        <p>Kailla Katsu,</p>
+        <p>A gente se conheceu pelo via Instagram, mas foi no Olimpori, em 16 de setembro, que eu te vi de verdade pela primeira vez. Desde então,você virou a minha desbravacrush favorita (e unica), e eu nem tento disfarçar.</p>
+        <p>Eu amo as nossas conversas,os poucos momentos que eu tive com você,todos foram incriveis.Gosto do seu jeito, da sua voz, de como o meu dia fica mais leve quando você aparece.</p>
+        <p>Na especialidade de astronomia a gente aprende a se orientar pelas estrelas, e eu acho que já encontrei a minha. Eu sei que você gosta muito de O Pequeno Príncipe, então peguei uma ideia emprestada dele. Toda vez que você olhar pro céu à noite, lembra que tem alguém aqui embaixo rindo e pensando em você.</p>
+        <p>Eu torço muito pra você ser a pessoa certa pra mim, e deixo o resto nas mãos de Deus. Até lá, eu continuo aqui, conversando com você todo dia, com muito cuidado.</p>
+        <p class="sig">Com carinho, Kelven.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer class="foot">
+    <div class="wrap">
+      <p>Feito à mão por Kelven para Kailla Katsu, que faz o meu céu inteiro.</p>
+    </div>
+  </footer>
+</main>
+
+<script>
+(function () {
+  "use strict";
+
+  /* ===== EDITE AQUI ===== */
+  var INICIO = new Date(2026, 8, 16, 0, 0, 0); /* 16/09/2026, dia do Olimpori */
+  var MOTIVOS = [
+    "O seu sorriso, que mudou o meu dia no Olimpori e continua mudando todos os outros.",
+    "O jeito que você me escuta, mesmo quando eu falo demais.",
+    "Com você eu consigo ser eu mesmo, sem fazer esforço nenhum.",
+    "As nossas conversas, que virou a minha parte favorita do dia.",
+    "A sua risada, que eu daria qualquer coisa pra ouvir de novo.",
+    "Você me faz querer ser melhor sem cobrar nada de mim.",
+    "Dividir com você a mesma fé e seguiur o mesmo proposito, sem precisar explicar nada.",
+    "Você me encantou demais,me cativou, e eu pretendo cuidar disso todo dia, como quem cuida da única rosa do próprio planeta."
+  ];
+  /* ============================================================ */
+
+  function $(id) { return document.getElementById(id); }
+  var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var rs = getComputedStyle(document.documentElement);
+  var COL = {
+    star: rs.getPropertyValue("--starlight").trim() || "#f8f0df",
+    rose: rs.getPropertyValue("--rose").trim() || "#f4a3b5"
+  };
+
+  /* ---------- céu: estrelas, estrelas cadentes e fogos ---------- */
+  var cvs = $("sky"), ctx = cvs.getContext("2d");
+  var W = 0, H = 0, lastW = 0, lastH = 0, stars = [], shoots = [], parts = [];
+  var lastT = 0, nextShoot = 2500;
+
+  function build() {
+    var dpr = Math.min(window.devicePixelRatio || 1, 2);
+    W = window.innerWidth; H = window.innerHeight;
+    if (W === lastW && Math.abs(H - lastH) < 150 && stars.length) return;
+    lastW = W; lastH = H;
+    cvs.width = Math.round(W * dpr); cvs.height = Math.round(H * dpr);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    var n = Math.max(60, Math.min(Math.round(W * H / 7000), 220));
+    stars = [];
+    for (var i = 0; i < n; i++) {
+      stars.push({
+        x: Math.random() * W, y: Math.random() * H,
+        r: Math.random() * 1.3 + 0.3, d: Math.random() * 0.25 + 0.05,
+        p: Math.random() * 6.28, s: Math.random() * 1.5 + 0.5,
+        warm: Math.random() < 0.18
+      });
+    }
+    if (reduce) frame(0);
+  }
+
+  function frame(t) {
+    var dt = lastT ? Math.min((t - lastT) / 16.7, 3) : 1;
+    lastT = t;
+    ctx.clearRect(0, 0, W, H);
+    var sy = window.scrollY || 0, i, k;
+    for (i = 0; i < stars.length; i++) {
+      var s = stars[i];
+      var y = (((s.y - sy * s.d) % H) + H) % H;
+      ctx.globalAlpha = reduce ? 0.7 : 0.3 + 0.6 * (0.5 + 0.5 * Math.sin(t / 1000 * s.s + s.p));
+      ctx.fillStyle = s.warm ? COL.rose : COL.star;
+      ctx.beginPath(); ctx.arc(s.x, y, s.r, 0, 6.283); ctx.fill();
+    }
+    if (!reduce) {
+      if (t > nextShoot) {
+        shoots.push({ x: Math.random() * W * 0.7 + W * 0.2, y: Math.random() * H * 0.3, vx: 6 + Math.random() * 3, vy: 2.5 + Math.random() * 2, a: 1 });
+        nextShoot = t + 6000 + Math.random() * 5000;
+      }
+      ctx.fillStyle = COL.star;
+      for (i = shoots.length - 1; i >= 0; i--) {
+        var h = shoots[i];
+        h.x += h.vx * dt; h.y += h.vy * dt; h.a -= 0.012 * dt;
+        if (h.a <= 0 || h.x > W + 80 || h.y > H + 80) { shoots.splice(i, 1); continue; }
+        for (k = 0; k < 16; k++) {
+          ctx.globalAlpha = (1 - k / 16) * h.a;
+          ctx.beginPath();
+          ctx.arc(h.x - h.vx * k * 0.9, h.y - h.vy * k * 0.9, 1.8 * (1 - k / 16) + 0.2, 0, 6.283);
+          ctx.fill();
+        }
+      }
+      for (i = parts.length - 1; i >= 0; i--) {
+        var q = parts[i];
+        q.vy += 0.07 * dt; q.vx *= 0.985; q.vy *= 0.985;
+        q.x += q.vx * dt; q.y += q.vy * dt; q.life -= dt;
+        if (q.life <= 0) { parts.splice(i, 1); continue; }
+        ctx.globalAlpha = Math.max(0, q.life / q.max);
+        ctx.fillStyle = q.c;
+        ctx.beginPath(); ctx.arc(q.x, q.y, q.r, 0, 6.283); ctx.fill();
+      }
+    }
+    ctx.globalAlpha = 1;
+    if (!reduce) requestAnimationFrame(frame);
+  }
+
+  function burst(x, y) {
+    var cols = [COL.rose, COL.star, "#ffd9a0"];
+    for (var i = 0; i < 110; i++) {
+      var a = Math.random() * 6.283, sp = 2 + Math.random() * 6;
+      parts.push({ x: x, y: y, vx: Math.cos(a) * sp, vy: Math.sin(a) * sp - 1, r: Math.random() * 2 + 0.8, life: 60 + Math.random() * 50, max: 110, c: cols[i % 3] });
+    }
+    shoots.push({ x: Math.random() * W * 0.5, y: Math.random() * H * 0.2, vx: 8, vy: 3.5, a: 1 });
+  }
+
+  build();
+  window.addEventListener("resize", build);
+  if (!reduce) requestAnimationFrame(frame);
+
+  /* ---------- tempo juntos ---------- */
+  var elD = $("cd"), elH = $("ch"), elM = $("cm"), elS = $("cs"), elSince = $("since");
+  function pad(n) { return n < 10 ? "0" + n : "" + n; }
+  function pl(n, um, varios) { return n + " " + (n === 1 ? um : varios); }
+  function ymd(a, b) {
+    var y = b.getFullYear() - a.getFullYear();
+    var m = b.getMonth() - a.getMonth();
+    var d = b.getDate() - a.getDate();
+    if (d < 0) { m--; d += new Date(b.getFullYear(), b.getMonth(), 0).getDate(); }
+    if (m < 0) { y--; m += 12; }
+    return { y: y, m: m, d: d };
+  }
+  function tick() {
+    var now = new Date();
+    var diff = Math.max(0, now.getTime() - INICIO.getTime());
+    var sec = Math.floor(diff / 1000);
+    elD.textContent = Math.floor(sec / 86400).toLocaleString("pt-BR");
+    elH.textContent = pad(Math.floor(sec / 3600) % 24);
+    elM.textContent = pad(Math.floor(sec / 60) % 60);
+    elS.textContent = pad(sec % 60);
+    if (now >= INICIO) {
+      var r = ymd(INICIO, now), parts2 = [];
+      if (r.y) parts2.push(pl(r.y, "ano", "anos"));
+      if (r.m) parts2.push(pl(r.m, "mês", "meses"));
+      if (r.d || !parts2.length) parts2.push(pl(r.d, "dia", "dias"));
+      var txt = parts2.length > 1 ? parts2.slice(0, -1).join(", ") + " e " + parts2[parts2.length - 1] : parts2[0];
+      var when = INICIO.toLocaleDateString("pt-BR", { day: "numeric", month: "long", year: "numeric" });
+      elSince.innerHTML = "Contando do jeito certo, são <strong>" + txt + "</strong> desde " + when + ", o dia do Olimpori.";
+    }
+  }
+  tick();
+  setInterval(tick, 1000);
+
+  /* ---------- constelação em forma de coração ---------- */
+  var G = ["α", "β", "γ", "δ", "ε", "ζ", "η", "θ"];
+  var PTS = [
+    { x: 200, y: 318, lx: 0, ly: 30, a: "middle" },
+    { x: 126, y: 236, lx: -16, ly: 5, a: "end" },
+    { x: 52, y: 150, lx: -16, ly: 5, a: "end" },
+    { x: 112, y: 62, lx: -14, ly: -12, a: "end" },
+    { x: 200, y: 118, lx: 0, ly: 32, a: "middle" },
+    { x: 288, y: 62, lx: 14, ly: -12, a: "start" },
+    { x: 348, y: 150, lx: 16, ly: 5, a: "start" },
+    { x: 274, y: 236, lx: 16, ly: 5, a: "start" }
+  ];
+  var SPARK = "M0 -1C.1 -.25 .25 -.1 1 0C.25 .1 .1 .25 0 1C-.1 .25 -.25 .1 -1 0C-.25 -.1 -.1 -.25 0 -1Z";
+  var chart = $("chart"), skybox = $("skybox");
+  var visited = [], cur = 0, N = PTS.length;
+  for (var i = 0; i < N; i++) visited.push(false);
+
+  var svg = '<defs>' +
+    '<radialGradient id="gh"><stop offset="0" class="gs1"/><stop offset="1" class="gs0"/></radialGradient>' +
+    '<radialGradient id="gr"><stop offset="0" class="rs1"/><stop offset="1" class="rs0"/></radialGradient></defs>';
+  svg += '<polygon class="heartfill" points="' + PTS.map(function (p) { return p.x + "," + p.y; }).join(" ") + '"/>';
+  svg += '<g class="heartname"><text class="hn1" x="200" y="196" text-anchor="middle">Cor Kaillae</text>' +
+    '<text class="hn2" x="200" y="216" text-anchor="middle">CORAÇÃO DE KAILLA</text></g>';
+  for (i = 0; i < N; i++) {
+    var a = PTS[i], b = PTS[(i + 1) % N];
+    svg += '<line class="seg" data-s="' + i + '" x1="' + a.x + '" y1="' + a.y + '" x2="' + b.x + '" y2="' + b.y + '"/>';
+  }
+  for (i = 0; i < N; i++) {
+    var p = PTS[i];
+    svg += '<g class="cs" data-i="' + i + '" transform="translate(' + p.x + " " + p.y + ')">' +
+      '<circle class="halo" r="26"/>' +
+      '<g class="sp"><path class="spark" transform="scale(10)" d="' + SPARK + '"/></g>' +
+      '<text class="gl" x="' + p.lx + '" y="' + p.ly + '" text-anchor="' + p.a + '">' + G[i] + '</text></g>';
+  }
+  chart.innerHTML = svg;
+
+  for (i = 0; i < N; i++) {
+    var btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "hit";
+    btn.dataset.i = i;
+    btn.style.left = (PTS[i].x / 400 * 100) + "%";
+    btn.style.top = (PTS[i].y / 360 * 100) + "%";
+    btn.setAttribute("aria-label", "Estrela " + G[i] + ", motivo " + (i + 1) + " de " + N);
+    btn.addEventListener("click", (function (n) { return function () { pick(n); }; })(i));
+    skybox.appendChild(btn);
+  }
+
+  var rkey = $("rkey"), rtxt = $("rtxt"), count = $("count"), complete = $("complete");
+  function pick(n) {
+    cur = n; visited[n] = true;
+    rkey.textContent = G[n] + " · motivo " + (n + 1) + " de " + N;
+    rtxt.textContent = MOTIVOS[n];
+    var stars2 = chart.querySelectorAll(".cs"), segs = chart.querySelectorAll(".seg"), k, lit = 0;
+    for (k = 0; k < N; k++) {
+      stars2[k].classList.toggle("on", visited[k]);
+      stars2[k].classList.toggle("cur", k === cur);
+      segs[k].classList.toggle("on", visited[k] && visited[(k + 1) % N]);
+      if (visited[k]) lit++;
+    }
+    count.textContent = lit + " de " + N + " estrelas acesas";
+    var all = lit === N;
+    skybox.classList.toggle("complete", all);
+    complete.hidden = !all;
+  }
+  $("next").addEventListener("click", function () {
+    var n = cur, k;
+    for (k = 1; k <= N; k++) {
+      n = (cur + k) % N;
+      if (!visited[n]) break;
+    }
+    pick(n);
+  });
+  pick(0);
+
+  /* ---------- eu sem você, eu com você ---------- */
+  var mrange = $("mrange"), mher = $("mher"), mhalo = $("mhalo"), mspark = $("mspark"), mline = $("mline");
+  var mstate = $("mstate"), mmag = $("mmag"), magsvg = $("magsvg"), mdone = false;
+  function fmtMag(v) {
+    var a = Math.abs(v);
+    if (a < 0.05) return "0,0";
+    return (v < 0 ? "−" : "+") + a.toFixed(1).replace(".", ",");
+  }
+  function magUpdate() {
+    var t = Math.max(0, Math.min(1, Number(mrange.value) / 100));
+    var hx = (318 - 122 * t).toFixed(1);
+    mher.setAttribute("transform", "translate(" + hx + " 100)");
+    mline.setAttribute("x2", hx);
+    mline.setAttribute("stroke-opacity", (0.18 + 0.82 * t).toFixed(2));
+    mline.setAttribute("stroke-dasharray", t > 0.97 ? "none" : "3 6");
+    mhalo.setAttribute("r", (20 + 44 * t).toFixed(1));
+    mhalo.setAttribute("opacity", (0.35 + 0.65 * t).toFixed(2));
+    mspark.setAttribute("transform", "scale(" + (9 + 12 * t).toFixed(1) + ")");
+    mmag.textContent = "mag " + fmtMag(2.4 - 3.6 * t);
+    mstate.textContent = t < 0.12 ? "eu sem você" : (t > 0.88 ? "eu com você" : "chegando perto");
+    if (t >= 1 && !mdone) {
+      mdone = true;
+      if (!reduce) {
+        var r = magsvg.getBoundingClientRect(), k = r.width / 360;
+        burst(r.left + 100 * k, r.top + 100 * k);
+      }
+    }
+  }
+  mrange.addEventListener("input", magUpdate);
+  magUpdate();
+
+  /* ---------- a pergunta ---------- */
+  var yes = $("yes"), no = $("no"), box = $("choices"), hint = $("hint"), yesmsg = $("yesmsg");
+  var tries = 0, lastDodge = 0;
+  var NOS = ["Não", "Tem certeza?", "Pensa melhor", "oloko", "Quase", "Desiste", "Clica no Quero"];
+
+  function dodge() {
+    var now = Date.now();
+    if (now - lastDodge < 300) return;
+    lastDodge = now; tries++;
+    var bb = box.getBoundingClientRect(), nb = no.getBoundingClientRect(), yb = yes.getBoundingClientRect();
+    if (!no.classList.contains("free")) {
+      no.style.left = (nb.left - bb.left) + "px";
+      no.style.top = (nb.top - bb.top) + "px";
+      no.classList.add("free");
+      void no.offsetWidth;
+    }
+    no.textContent = NOS[Math.min(tries, NOS.length - 1)];
+    var nw = no.offsetWidth, nh = no.offsetHeight;
+    var maxX = Math.max(0, bb.width - nw), maxY = Math.max(0, bb.height - nh);
+    var x = 0, y = 0, ok = false, k = 0;
+    while (!ok && k < 30) {
+      x = Math.random() * maxX; y = Math.random() * maxY;
+      var l = x + bb.left, t = y + bb.top;
+      ok = l > yb.right + 12 || l + nw < yb.left - 12 || t > yb.bottom + 12 || t + nh < yb.top - 12;
+      k++;
+    }
+    no.style.left = x + "px"; no.style.top = y + "px";
+    yes.style.transform = "scale(" + Math.min(1 + tries * 0.07, 1.4) + ")";
+    if (tries >= 3) hint.textContent = "Dica: o “Quero” está bem ali, e cada vez maior.";
+  }
+  no.addEventListener("pointerenter", dodge);
+  no.addEventListener("pointerdown", function (e) { e.preventDefault(); dodge(); });
+  no.addEventListener("click", function (e) { e.preventDefault(); dodge(); });
+  no.addEventListener("focus", dodge);
+
+  yes.addEventListener("click", function () {
+    var r = yes.getBoundingClientRect();
+    var cx = r.left + r.width / 2, cy = r.top + r.height / 2;
+    box.hidden = true; hint.hidden = true; yesmsg.hidden = false;
+    $("stamp").textContent = "Resposta registrada em " + new Date().toLocaleString("pt-BR", { day: "numeric", month: "long", year: "numeric", hour: "2-digit", minute: "2-digit" });
+    if (!reduce) {
+      burst(cx, cy);
+      setTimeout(function () { burst(W * 0.22, H * 0.4); }, 350);
+      setTimeout(function () { burst(W * 0.78, H * 0.35); }, 650);
+    }
+    yesmsg.scrollIntoView({ block: "center", behavior: reduce ? "auto" : "smooth" });
+  });
+})();
+</script>
+
+</body></html>
